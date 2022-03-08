@@ -1,0 +1,74 @@
+
+1) Create tables for the above list given
+
+
+use zen_class_db;
+create table user(id int auto_increment primary key,name varchar(40) ,email varchar(40));
+create table attendance (id int auto_increment primary key,date date,user int, foreign key(user) references user(id));
+create table  course(id int auto_increment primary key,course_name varchar(40));
+create table codekata(id int auto_increment primary key,no_of_problem int,user int,foreign key(user) references user(id));
+create table topics(id int auto_increment primary key,topic_name varchar(40));
+create table company_drives(id int auto_increment primary key,company_name varchar(40),user int,foreign key(user) references user(id));
+create table tasks(id int auto_increment primary key,task_name varchar(40),user int,foreign key(user) references user(id));
+create table student_course(id int auto_increment primary key,courseId int,foreign key(courseId) references course(id),user int,foreign key(user) references user(id));
+create table mentors(id int auto_increment primary key,name varchar(40),user int,foreign key(user) references user(id));
+
+2) insert at least 5 rows of values in each table
+
+SELECT * FROM zen_class_db.course;
+insert into course(course_name) values("FrondEnd Development");
+insert into course(course_name) values("BackEnd Devlopment");
+insert into course(course_name) values("FullStack Developmet");
+
+SELECT * FROM zen_class_db.mentors;
+insert into mentors(name,user) values("mentor1",1);
+insert into mentors(name,user) values("mentor2",2);
+insert into mentors(name,user) values("mentor3",3);
+
+
+
+SELECT * FROM zen_class_db.tasks;
+insert into tasks(task_name,user) values("Forms",1);
+insert into tasks(task_name,user) values("Tables",2);
+insert into tasks(task_name,user) values("Grid",2);
+insert into tasks(task_name,user) values("Flexbox",3);
+insert into tasks(task_name,user) values("Tic-Tac-Toe",3);
+
+
+SELECT * FROM zen_class_db.student_course;
+insert into student_course(courseId,user) values(1,1);
+insert into student_course(courseId,user) values(2,2);
+insert into student_course(courseId,user) values(2,3);
+insert into student_course(courseId,user) values(2,4);
+insert into student_course(courseId,user) values(3,5);
+insert into student_course(courseId,user) values(3,6);
+insert into student_course(courseId,user) values(4,3);
+insert into student_course(courseId,user) values(4,1);
+
+
+3)  get number problems solved in codekata by combining the users
+
+
+select no_of_problem,user from codekata 
+
+
+4) display the no of company drives attended by a user
+
+
+select user, count(*) as count from company_drives group by user
+
+
+5) combine and display students_activated_courses and courses for a specific user groping them based on the course
+
+  select courseId ,user, count(*) from student_course group by user;
+
+
+6) list all the mentors
+
+SELECT * FROM zen_class_db.mentors;
+
+
+
+7) list the number of students that are assigned for a mentor
+
+select name, count(*) as count from mentors group by name
